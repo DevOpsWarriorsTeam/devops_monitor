@@ -13,7 +13,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.9]
 
     steps:
     - uses: actions/checkout@v4
@@ -21,6 +21,7 @@ jobs:
     # Cambiar al directorio 'api' y ejecutar los comandos dentro de ese directorio
     - name: Set up Python ${{ matrix.python-version }} and Install Dependencies
       run: |
+        ls  # Lista los archivos y directorios para verificar la ubicación de 'api'
         cd api
         python -m pip install --upgrade pip
         pip install -r requirements.txt
