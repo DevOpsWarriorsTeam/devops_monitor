@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: ./api
+    volumes:
+      - ./api:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DJANGO_SETTINGS_MODULE=ecs_project.settings
+
+  db:
+    image: nouchka/sqlite3:latest
+    container_name: devops_project_db
+    volumes:
+      - ./api/db.sqlite3:/app/db.sqlite3
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:80"
+    stdin_open: true
+    tty: true
