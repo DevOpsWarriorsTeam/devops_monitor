@@ -1,0 +1,39 @@
+name: Validación CI - Django y React
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias de Django (API)
+        run: |
+          cd api
+          pip install -r requirements.txt
+
+      - name: Ejecutar pruebas de Django (API)
+        run: |
+          cd api
+          python manage.py test
+
+      - name: Instalar dependencias de React (frontend)
+        run: |
+          cd frontend
+          npm install
+
+      - name: Ejecutar pruebas de React (frontend)
+        run: |
+          cd frontend
+          npm test
